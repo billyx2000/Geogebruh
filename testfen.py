@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+from tkinter import *
+class MyWindow(Tk):
+    def __init__(self):
+        Tk.__init__(self)  
+        self.__name = StringVar()
+        self.bmoins=StringVar()
+        self.bplus=StringVar()
+        labelfn = Label( self, text="Saisir votre fonction f(x)=")
+        labelfn.pack()
+        namefn = Entry(self, textvariable=self.__name )
+        namefn.focus_set()
+        namefn.pack()
+        labelbornes= Label( self, text="Saisir les bornes - et + :")
+        labelbornes.pack()
+        bmoins = Entry(self, textvariable=self.bmoins )
+        bmoins.focus_set()
+        bmoins.pack()
+        bplus = Entry(self, textvariable=self.bplus)
+        bplus.focus_set()
+        bplus.pack()
+        button = Button( self, text="Valider !", command=self.doSomething)
+        button.pack()
+        self.geometry( "300x200" )
+        self.title("Saisie")
+    def doSomething(self):
+        print( "La fonction saisie est " + self.__name.get() )
+        print( "La borne moins saisie est " + self.bmoins.get() )
+        print( "La borne plus saisie est " + self.bplus.get() )
+window = MyWindow()
+window.mainloop()
