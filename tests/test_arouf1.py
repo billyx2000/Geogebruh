@@ -19,7 +19,6 @@ canvas.get_tk_widget().pack(side=Tkinter.TOP, fill=Tkinter.BOTH, expand=1)
 
 toolbar = NavigationToolbar2Tk(canvas, root)
 toolbar.update()
-canvas.get_tk_widget().pack(side=Tkinter.TOP, fill=Tkinter.BOTH, expand=1)
 
 button = Tkinter.Button(master=root, text="Quit", command=quit)
 button.pack(side=Tkinter.BOTTOM)
