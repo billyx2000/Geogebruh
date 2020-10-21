@@ -27,6 +27,9 @@ import matplotlib as mpl
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
+# Import the math native library
+import math
+
 # Create the window handler class (allowing fullscreen, and ESC to escape)
 class WindowHandler:
 
@@ -61,6 +64,29 @@ def get_input():
     fig.clear()
     fig.add_subplot(1,1,1).plot(t, y)
     fig.canvas.draw_idle()
+
+# TODO Catch the errors in the follow functions to show proper error message
+# TODO Cast the 'x' to the expected format for the math.* methods
+# Define the available mathematical functions
+def sqrt(x):
+    return math.sqrt(x)
+
+def sin(x):
+    #x = str(x)
+    #print(type(x))
+    return math.sin(float(str(x)))
+
+def cos(x):
+    return math.cos(x)
+
+def tan(x):
+    return math.tan(x)
+
+def exp(x):
+    return math.exp(x)
+
+def fctr(x):
+    return math.factorial(x)
 
 # Initiate the window and set its title
 #window = Tkinter.Tk()
