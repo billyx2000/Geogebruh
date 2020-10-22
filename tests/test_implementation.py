@@ -17,8 +17,8 @@
 
 
 # Import Tkinter methods (Window interface)
-import Tkinter
-from Tkinter import *
+import tkinter
+from tkinter import *
 
 # Import Numpy (math mathods) and Matplotlib (Graph generation)
 import numpy as np
@@ -110,6 +110,10 @@ def fctr(x):
     return math.factorial(x)
 
 # Initiate the window and set its title
+<<<<<<< HEAD
+=======
+#window = tkinter.Tk()
+>>>>>>> 135a6d51d19189d5aa0e7d260221e779e0624d47
 windowHandler = WindowHandler()
 window = windowHandler.tk
 window.wm_title("Geogebruh")
@@ -130,7 +134,7 @@ fig.add_subplot(1,1,1).plot(x, fx)
 
 # Draw the graph
 canvas = FigureCanvasTkAgg(fig, master=window)  
-canvas.get_tk_widget().pack(side=Tkinter.TOP, fill=Tkinter.BOTH, expand=1)
+canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
 canvas.draw()
 
 # Add toolbar to the graph, allowing zoom/pan/reset
@@ -138,7 +142,11 @@ toolbar = NavigationToolbar2Tk(canvas, window)
 toolbar.update()
 
 # Generate the submit button
+<<<<<<< HEAD
 submit = Tkinter.Button(window, text='Tracer', command=update_graph)#.place(x=300, y=400)
+=======
+submit = tkinter.Button(window, text='Valider', command=get_input)#.place(x=300, y=400)
+>>>>>>> 135a6d51d19189d5aa0e7d260221e779e0624d47
 submit.pack(side=RIGHT)
 
 # TODO Make the changes alter the real "np.arange(range_min, range_max, range_step)" ranges/step
@@ -173,6 +181,6 @@ label_func = Label(window, text="f(x) = ")
 label_func.pack(side=RIGHT)
 
 # Maintains the window open
-#Tkinter.mainloop()
+#tkinter.mainloop()
 window.tk.mainloop()
 
