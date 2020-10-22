@@ -110,10 +110,7 @@ def fctr(x):
     return math.factorial(x)
 
 # Initiate the window and set its title
-<<<<<<< HEAD
-=======
 #window = tkinter.Tk()
->>>>>>> 135a6d51d19189d5aa0e7d260221e779e0624d47
 windowHandler = WindowHandler()
 window = windowHandler.tk
 window.wm_title("Geogebruh")
