@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from tkinter import *
+from Tkinter import *
 class MyWindow(Tk):
     def __init__(self):
         Tk.__init__(self)  

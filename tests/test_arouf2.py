@@ -1,5 +1,5 @@
 import tkinter
-import lib_fct as lf
+import lib_fct as lf  #Importe mes fonctions
 from tkinter import *
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 # Implement the default Matplotlib key bindings.
