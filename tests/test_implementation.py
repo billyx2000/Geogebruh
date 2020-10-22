@@ -16,6 +16,11 @@
 # Import system library (used to test python version)
 import sys
 
+#Import our own functions
+import lib_fct as lf  
+
+from tkinter import END  #Needed for @Milan
+
 # Import Tkinter methods (Window interface)
 if sys.version_info[0] == 3:
     # Python3 (lowercase 't')
@@ -38,8 +43,8 @@ class WindowHandler:
     def __init__(self):
         self.tk = Tk.Tk()
 	# This just maximizes it so we can see the window, it is not fullscreen.
-        self.tk.attributes('-zoomed', True)
-        #self.tk.attributes('-fullscreen', True) #Fix for Anaconda
+        #self.tk.attributes('-zoomed', True)
+        self.tk.attributes('-fullscreen', True) #Fix for Anaconda
         self.frame = Tk.Frame(self.tk)
         self.frame.pack()
         self.state = False
@@ -60,18 +65,21 @@ class WindowHandler:
 # Function getting input field value
 def update_graph():
     # Get the fields value
-    func = input_func.get()
+    funcInputed = input_func.get()
     range_min = float(input_range_min.get())
     range_max = float(input_range_max.get())
     range_step = float(input_step.get())
+    
+    funcToken = lf.LexicalAnalysis(funcInputed)      
+    func_Checked = lf.VerifToken(funcToken)   #Retourne string function corrigé, et adapté 
 
     # Evaluate the expression and handle error, update the function and the variable
     x = np.arange(range_min, range_max, range_step)
-    fx = eval(func)
+    fx = eval(func_Checked)
 
     # Update the fields content
     input_func.delete(0, END)
-    input_func.insert(0, func)
+    input_func.insert(0, func_Checked)
 
     input_range_min.delete(0, END)
     input_range_min.insert(0, range_min)
@@ -152,4 +160,3 @@ label_func.pack(side=Tk.RIGHT)
 
 # Maintains the window open
 window.tk.mainloop()
-
