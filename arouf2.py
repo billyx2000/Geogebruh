@@ -1,4 +1,5 @@
 import tkinter
+import lib_fct as lf
 from tkinter import *
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 # Implement the default Matplotlib key bindings.
@@ -23,14 +24,16 @@ canvas = FigureCanvasTkAgg(fig, master=root)
 canvas.get_tk_widget().pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
 canvas.draw()
 
-label1 = Label(root, text="f(t)")
+label1 = Label(root, text="f(t) : ")
 label1.pack( side = LEFT)
 inputFctn = Entry(root, bd =5)
-inputFctn.pack(side = RIGHT)
+inputFctn.pack(side = LEFT)
 
 def on_key_press():
     value = inputFctn.get()
-    y = eval(value)
+    token = lf.LexicalAnalysis(value)      
+    correctedTokenStr = lf.VerifToken(token)   #Retourne string function corrigé, et adapté 
+    y = eval(correctedTokenStr)
     fig.clear()
     fig.add_subplot(1,1,1).plot(t, y)
     fig.canvas.draw_idle()
