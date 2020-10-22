@@ -1,6 +1,8 @@
 # FROM https://www.bornageek.com/general/development/2013/05/10/lexical-analysis-using-python.html
 # Might need to edit to suit our need
 
+# Doesnt work for NOW
+
 #!/usr/bin/env python from pyparsing import Word, Regex, Literal, OneOrMore, ParseException
 import sys
 import re
@@ -8,9 +10,10 @@ import re
 def main(argv):
 	form = argv[0]
 
-	# Do something with this data. 	if form is not None:
+	if form is not None:
+		# Do something with this data.
 		try:
-			operator = Regex(r'(?<!--[\+\-\^\*/%])[\+\-]|[\^\*/%!]')<br /-->
+			operator = Regex(r'(?<!--[\+\-\^\*/%])[\+\-]|[\^\*/%!]')
 			function = Regex(r'[a-zA-Z_][a-zA-Z0-9_]*(?=([ \t]+)?\()')
 			variable = Regex(r'[+-]?[a-zA-Z_][a-zA-Z0-9_]*(?!([ \t]+)?\()')
 			number = Regex(r'[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?')
