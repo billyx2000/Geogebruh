@@ -16,10 +16,8 @@
 # Import system library (used to test python version)
 import sys
 
-#Import our own functions
+# Import our own functions
 import lib_fct as lf  
-
-from tkinter import END  #Needed for @Milan
 
 # Import Tkinter methods (Window interface)
 if sys.version_info[0] == 3:
@@ -44,7 +42,7 @@ class WindowHandler:
         self.tk = Tk.Tk()
 	# This just maximizes it so we can see the window, it is not fullscreen.
         #self.tk.attributes('-zoomed', True)
-        self.tk.attributes('-fullscreen', True) #Fix for Anaconda
+        self.tk.attributes('-fullscreen', True) # Fix for Jupiter/Anaconda
         self.frame = Tk.Frame(self.tk)
         self.frame.pack()
         self.state = False
@@ -65,29 +63,37 @@ class WindowHandler:
 # Function getting input field value
 def update_graph():
     # Get the fields value
-    funcInputed = input_func.get()
+    func_input = input_func.get()
     range_min = float(input_range_min.get())
     range_max = float(input_range_max.get())
     range_step = float(input_step.get())
     
-    funcToken = lf.LexicalAnalysis(funcInputed)      
-    func_Checked = lf.VerifToken(funcToken)   #Retourne string function corrigé, et adapté 
+    # Analyse the inputed expression
+    func_token = lf.LexicalAnalysis(func_input)
+
+    # Return parsed and evaluated function string
+    func_parsed = lf.VerifToken(func_token)
+
+    # DEBUG
+    #print(func_parsed)
+    #print(type(func_parsed))
 
     # Evaluate the expression and handle error, update the function and the variable
     x = np.arange(range_min, range_max, range_step)
-    fx = eval(func_Checked)
+    fx = eval(func_parsed)
 
     # Update the fields content
-    input_func.delete(0, END)
-    input_func.insert(0, func_Checked)
+    func_expr = func_parsed
+    input_func.delete(0, Tk.END)
+    input_func.insert(0, func_expr.replace("np.", ''))
 
-    input_range_min.delete(0, END)
+    input_range_min.delete(0, Tk.END)
     input_range_min.insert(0, range_min)
 
-    input_range_max.delete(0, END)
+    input_range_max.delete(0, Tk.END)
     input_range_max.insert(0, range_max)
 
-    input_step.delete(0, END)
+    input_step.delete(0, Tk.END)
     input_step.insert(0, range_step)
 
     # Clear and update the graph
@@ -109,7 +115,7 @@ range_max = 10
 range_step = .05
 
 x = np.arange(range_min, range_max, range_step)
-fx = x**2
+fx = np.sqrt(x)
 
 # Default math expression is f(t) = t**2
 fig.add_subplot(1,1,1).plot(x, fx)
@@ -124,10 +130,9 @@ toolbar = NavigationToolbar2Tk(canvas, window)
 toolbar.update()
 
 # Generate the submit button
-submit = Tk.Button(window, text='Tracer', command=update_graph)#.place(x=300, y=400)
+submit = Tk.Button(window, text='Tracer', command=update_graph)
 submit.pack(side=Tk.RIGHT)
 
-# TODO Make the changes alter the real "np.arange(range_min, range_max, range_step)" ranges/step
 # Define range/step fields and labels
 input_range_min = Tk.Entry(window, bd=2, width=5)
 input_range_min.insert(0, "0")
@@ -152,7 +157,7 @@ label_step.pack(side=Tk.RIGHT)
 
 # Define function input field and labels
 input_func = Tk.Entry(window, bd=2)
-input_func.insert(0, "x**2")
+input_func.insert(0, "sqrt(x)")
 input_func.pack(side=Tk.RIGHT)
 
 label_func = Tk.Label(window, text="f(x) = ")

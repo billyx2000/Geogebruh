@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 from pyparsing import *
 from enum import Enum
 import sys
@@ -9,24 +9,35 @@ class UsualFct(Enum):
     sin = 2
     tan = 3
     abs = 4
-    sqrt= 5
+    sqrt = 5
     exp = 6
     log = 7
-    
+    power = 8 # Error because "power(x, 2)" parsed as "power(x2.0)"
+    cbrt = 9
+    arccos = 10
+    arcsin = 11
+    arctan = 12
 
 def VerifToken(tokenArray):
-    print(tokenArray)
+    # DEBUG
+    #print(tokenArray)
+
     tokenArray = tokenArray.asList()
-    tokenString = ''.join(str(v) for v in tokenArray).replace('[', '(').replace(']', ')') #List to string and replace '[' to '('
+    #tokenString = ''.join(str(v) for v in tokenArray).replace('[', '(').replace(']', ')') #List to string and replace '[' to '('
+    tokenString = ''.join(str(v) for v in tokenArray).replace('[', '').replace(']', '') #List to string and replace '[' to '('
+
+    # DEBUG
+    #print(tokenString)
     
-    tokenFct = re.findall(r'\b[a-zA-Z]{3,4}',tokenString) #match all word as "cos" or "sin" or "sqrt" etc
+    tokenFct = re.findall(r'\b[a-zA-Z]{3,6}',tokenString) # Match all funtion string, with a length from 3 to 6
     
     for fct in tokenFct:
         if fct not in UsualFct._member_names_:
-            print("mauvaise saisie: ")
+	    # DEBUG
+            print("Mauvaise saisie: ")
             print(fct)
             return False
-        else:   
+        else:
              tokenString = tokenString.replace(fct, "np."+fct)  #remplace fct par np.fct pour appel numpy
                 
     tokenString = tokenString.replace(",", '')
@@ -62,5 +73,7 @@ def LexicalAnalysis(myExpr):
     result = expr.parseString(myExpr)
     return(result)
 
-rep =LexicalAnalysis('2*sin(t)')
-VerifToken(rep)
+# DEBUG
+#rep = LexicalAnalysis('2*sin(t)')
+#VerifToken(rep)
+
