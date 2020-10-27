@@ -4,8 +4,9 @@ Projet generation de graphique dynamique, d'expression mathematique entré par u
 # Run
 Pour exécuter Geogebruh, préparez votre environnement :
 * `git clone https://github.com/billyx2000/Geogebruh.git Geogebruh`
-* `sudo scripts/install_requirements`
-* `geogebruh` (*Comes later, when project done*)
+* `sudo scripts/setup`
+* ~~`./geogebruh` (*Comes later, when project done*)~~
+* `./tests/geogebruh` (*This is the test implementation for now*)
 
 ## Parties
 
@@ -18,7 +19,7 @@ Pour exécuter Geogebruh, préparez votre environnement :
 	* *range_step = STEP*
 * Main : **@Graham** / **@Milan**
 * Second : ?
-* File : *tests/test_implementation.py*
+* File : *tests/geogebruh*
 
 ### Analyse lexical/syntaxique (return **array**)
 * Description : Découpage en tokens de l'expression mathematique entré par l'utilisateur, et assignation des attributs (OPERATEUR/NOMBRE/FONCTION/STRUCTURE/VARIABLE) pour permettre la verification par le **Evaluateur**
@@ -29,9 +30,10 @@ Pour exécuter Geogebruh, préparez votre environnement :
 	* **VARIABLE**	: *e.g. x (Defined at the start, to simplify the process)*
 * Main : **@Milan**
 * Second : ?
-* File : *lexical_analysis.py*
+* File : *lib_fct.py*
 
 ### Evaluateur (return **f(x)**)
 * Description : Verification des tokens avec les valeurs/structures/fonctions supportés (sin, cos, ...) et concatenation de l'array pour l'execution
 * Main : **@Milan**
 * Second : ?
+* File : *lib_fct.py*

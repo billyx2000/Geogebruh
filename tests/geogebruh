@@ -17,7 +17,7 @@
 import sys
 
 # Import our own functions
-import lib_fct as lf  
+import lib_fct as lf
 
 # Import Tkinter methods (Window interface)
 if sys.version_info[0] == 3:
@@ -61,13 +61,13 @@ class WindowHandler:
         return "break"
 
 # Function getting input field value
-def update_graph():
+def update_graph(*args):
     # Get the fields value
     func_input = input_func.get()
     range_min = float(input_range_min.get())
     range_max = float(input_range_max.get())
     range_step = float(input_step.get())
-    
+
     # Analyse the inputed expression
     func_token = lf.LexicalAnalysis(func_input)
 
@@ -132,6 +132,10 @@ toolbar.update()
 # Generate the submit button
 submit = Tk.Button(window, text='Tracer', command=update_graph)
 submit.pack(side=Tk.RIGHT)
+
+# Bind the returns keypress to update the graph
+window.bind('<Return>', update_graph)
+window.bind('<KP_Enter>', update_graph)
 
 # Define range/step fields and labels
 input_range_min = Tk.Entry(window, bd=2, width=5)
