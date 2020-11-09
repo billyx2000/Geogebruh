@@ -127,6 +127,10 @@ canvas.draw()
 
 # Add toolbar to the graph, allowing zoom/pan/reset
 toolbar = NavigationToolbar2Tk(canvas, window)
+
+# Add toolbar to the graph
+NavigationToolbar2Tk.toolitems = [t for t in NavigationToolbar2Tk.toolitems if
+                                  t[0] not in ('Subplots',)]   #Removing the plot configuration
 toolbar.update()
 
 # Generate the submit button
@@ -163,6 +167,7 @@ label_step.pack(side=Tk.RIGHT)
 input_func = Tk.Entry(window, bd=2)
 input_func.insert(0, "sqrt(x)")
 input_func.pack(side=Tk.RIGHT)
+
 
 label_func = Tk.Label(window, text="f(x) = ")
 label_func.pack(side=Tk.RIGHT)
