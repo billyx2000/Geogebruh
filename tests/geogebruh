@@ -125,12 +125,11 @@ canvas = FigureCanvasTkAgg(fig, master=window)
 canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 canvas.draw()
 
+# Configure toolbar (removing useless buttons, e.g. plot configuration)
+NavigationToolbar2Tk.toolitems = [t for t in NavigationToolbar2Tk.toolitems if t[0] not in ('Subplots',)]
+
 # Add toolbar to the graph, allowing zoom/pan/reset
 toolbar = NavigationToolbar2Tk(canvas, window)
-
-# Add toolbar to the graph
-NavigationToolbar2Tk.toolitems = [t for t in NavigationToolbar2Tk.toolitems if
-                                  t[0] not in ('Subplots',)]   #Removing the plot configuration
 toolbar.update()
 
 # Generate the submit button
