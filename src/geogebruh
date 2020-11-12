@@ -23,14 +23,17 @@ import lib_fct as lf
 if sys.version_info[0] == 3:
     # Python3 (lowercase 't')
     import tkinter as Tk
+    from tkinter import messagebox
 else:
     # Python2 (uppercase 't')
     import Tkinter as Tk
+    from Tkinter import messagebox
 
 # Import Numpy (math mathods) and Matplotlib (Graph generation)
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 
@@ -80,26 +83,31 @@ def update_graph(*args):
 
     # Evaluate the expression and handle error, update the function and the variable
     x = np.arange(range_min, range_max, range_step)
-    fx = eval(func_parsed)
+    try:
+        fx = eval(func_parsed)
 
-    # Update the fields content
-    func_expr = func_parsed
-    input_func.delete(0, Tk.END)
-    input_func.insert(0, func_expr.replace("np.", ''))
+        # Update the fields content
+        func_expr = func_parsed
+        input_func.delete(0, Tk.END)
+        input_func.insert(0, func_expr.replace("np.", ''))
 
-    input_range_min.delete(0, Tk.END)
-    input_range_min.insert(0, range_min)
+        input_range_min.delete(0, Tk.END)
+        input_range_min.insert(0, range_min)
 
-    input_range_max.delete(0, Tk.END)
-    input_range_max.insert(0, range_max)
+        input_range_max.delete(0, Tk.END)
+        input_range_max.insert(0, range_max)
 
-    input_step.delete(0, Tk.END)
-    input_step.insert(0, range_step)
+        input_step.delete(0, Tk.END)
+        input_step.insert(0, range_step)
 
-    # Clear and update the graph
-    fig.clear()
-    fig.add_subplot(1,1,1).plot(x, fx)
-    fig.canvas.draw_idle()
+        # Clear and update the graph
+        fig.clear()
+        fig.add_subplot(1,1,1).plot(x, fx)
+        fig.canvas.draw_idle()
+    except:
+        #print("[DEBUG] Your input is wrong!")
+        messagebox.showwarning("Warning", "Your input(s) are incorrect")
+        pass
 
 # Initiate the window and set its title
 windowHandler = WindowHandler()
@@ -114,26 +122,32 @@ range_min = 0
 range_max = 10
 range_step = .05
 
+# Defining default ranges and math expression (by default : f(t) = sqrt(x)+sin(x))
 x = np.arange(range_min, range_max, range_step)
-fx = np.sqrt(x)
+fx = np.sqrt(x)+np.sin(x)
 
-# Default math expression is f(t) = t**2
 fig.add_subplot(1,1,1).plot(x, fx)
 
 # Draw the graph
 canvas = FigureCanvasTkAgg(fig, master=window)
-canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
+canvas.get_tk_widget().pack(side=Tk.BOTTOM, fill=Tk.BOTH, expand=1)
 canvas.draw()
 
+# Configure toolbar (removing useless buttons, e.g. plot configuration)
+NavigationToolbar2Tk.toolitems = [t for t in NavigationToolbar2Tk.toolitems if t[0] not in ('Subplots',)]
+
 # Add toolbar to the graph, allowing zoom/pan/reset
-toolbar = NavigationToolbar2Tk(canvas, window)
+# Creating a new frame to align the toolbar and it's coordinates in the top left corner
+toolbar_frame = Tk.Frame(window)
+toolbar = NavigationToolbar2Tk(canvas, toolbar_frame)
+toolbar_frame.pack(side=Tk.LEFT, fill=Tk.X)
 toolbar.update()
 
-# Generate the submit button
+# Generate the submit button (bind the graph update function to it)
 submit = Tk.Button(window, text='Tracer', command=update_graph)
 submit.pack(side=Tk.RIGHT)
 
-# Bind the returns keypress to update the graph
+# Also bind the returns keypress to update the graph
 window.bind('<Return>', update_graph)
 window.bind('<KP_Enter>', update_graph)
 
@@ -161,7 +175,7 @@ label_step.pack(side=Tk.RIGHT)
 
 # Define function input field and labels
 input_func = Tk.Entry(window, bd=2)
-input_func.insert(0, "sqrt(x)")
+input_func.insert(0, "sqrt(x)+sin(x)")
 input_func.pack(side=Tk.RIGHT)
 
 label_func = Tk.Label(window, text="f(x) = ")
