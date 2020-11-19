@@ -30,22 +30,22 @@ def VerifToken(tokenArray):
 
     # DEBUG
     #print(tokenString)
-
+    
     # Match all funtion string, with a length from 3 to 6
     tokenFct = re.findall(r'\b[a-zA-Z]{3,6}',tokenString)
-
+    
     # Check if given function(s) are supported
     for fct in tokenFct:
         if fct not in UsualFct._member_names_:
 
-	    # DEBUG
+            # DEBUG
             #print("Mauvaise saisie: ")
             #print(fct)
 
             return False
 
         else:
-	    # Prefix function name with "np" to use numpy math function (function_name => np.function_name)
+            # Prefix function name with "np" to use numpy math function (function_name => np.function_name)
             tokenString = tokenString.replace(fct, "np."+fct)
 
     # Clean up the token string
@@ -85,4 +85,5 @@ def LexicalAnalysis(myExpr):
 
 # DEBUG
 #print(VerifToken(LexicalAnalysis('2*sin(t)')))
+#print(VerifToken(LexicalAnalysis('power(x,5)')))
 

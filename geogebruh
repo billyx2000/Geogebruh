@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#nohup python src/geogebruh >/dev/null &
+python src/geogebruh
