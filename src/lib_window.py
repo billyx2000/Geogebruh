@@ -45,7 +45,7 @@ class WindowHandler:
         return "break"
 
 # Function getting input field value
-def update_graph(fig, input_func, input_range_min, input_range_max, input_step):
+def UpdateGraph(fig, input_func, input_range_min, input_range_max, input_step):
     # Get the fields value
     func_input = input_func.get()
     range_min = float(input_range_min.get())

@@ -36,7 +36,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 
 # Defining local graph update function (to avoid variable scope errors)
 def update(*args) :
-    Wd.update_graph(fig, input_func, input_range_min, input_range_max, input_step)
+    Wd.UpdateGraph(fig, input_func, input_range_min, input_range_max, input_step)
 
 # Initiate the window and set its title
 windowHandler = Wd.WindowHandler()
