@@ -52,6 +52,7 @@ def VerifToken(tokenArray):
     tokenString = tokenString.replace(",", '')
     tokenString = tokenString.replace(" ", '')
     tokenString = tokenString.replace("'", '')
+    tokenString = re.sub(r'(.*\(x)(\d\))', r'\1,\2', tokenString)
 
     return tokenString
 
@@ -66,7 +67,7 @@ def LexicalAnalysis(myExpr):
     array_func = Group(funccall + "[" + Group(delimitedList(expr, "][")) + "]")
     array_var = Group(variable + "[" + Group(delimitedList(expr, "][")) + "]")
 
-    operand = double | string | array_func | funccall | array_var | variable
+    operand = integer | string | array_func | funccall | array_var | variable
 
     expop = Literal('^')
     signop = oneOf('+ -')
