@@ -12,7 +12,7 @@ class UsualFct(Enum):
     sqrt = 5
     exp = 6
     log = 7
-    power = 8 # Error because "power(x, 2)" parsed as "power(x2.0)"
+    power = 8
     cbrt = 9
     arccos = 10
     arcsin = 11
@@ -30,10 +30,10 @@ def VerifToken(tokenArray):
 
     # DEBUG
     #print(tokenString)
-    
+
     # Match all funtion string, with a length from 3 to 6
     tokenFct = re.findall(r'\b[a-zA-Z]{3,6}',tokenString)
-    
+
     # Check if given function(s) are supported
     for fct in tokenFct:
         if fct not in UsualFct._member_names_:

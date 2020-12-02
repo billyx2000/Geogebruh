@@ -1,3 +1,2 @@
 # Ignoring python cache folders
-__pycache__
-__*/*
+*.pyc
