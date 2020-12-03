@@ -25,7 +25,6 @@ def VerifToken(tokenArray):
     #print(tokenArray)
 
     tokenArray = tokenArray.asList()
-    #tokenString = ''.join(str(v) for v in tokenArray).replace('[', '(').replace(']', ')') #List to string and replace '[' to '('
     tokenString = ''.join(str(v) for v in tokenArray).replace('[', '').replace(']', '') #List to string and replace '[' to '('
 
     # DEBUG
@@ -52,6 +51,7 @@ def VerifToken(tokenArray):
     tokenString = tokenString.replace(",", '')
     tokenString = tokenString.replace(" ", '')
     tokenString = tokenString.replace("'", '')
+    # Regex fix to power(x, y) issue (above lines replace the comma, that is needed for this function)
     tokenString = re.sub(r'(.*\(x)(\d\))', r'\1,\2', tokenString)
 
     return tokenString
