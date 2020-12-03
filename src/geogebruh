@@ -73,7 +73,7 @@ toolbar_frame.pack(side=Tk.LEFT, fill=Tk.X)
 toolbar.update()
 
 # Generate the submit button (bind the graph update function to it)
-submit = Tk.Button(window, text='Tracer', command=update)
+submit = Tk.Button(window, text='Trace', command=update)
 submit.pack(side=Tk.RIGHT)
 
 # Also bind the returns keypress to update the graph
