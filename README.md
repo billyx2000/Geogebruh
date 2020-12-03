@@ -3,6 +3,7 @@ Projet generation de graphique dynamique, d'expression mathematique entré par u
 
 # Run
 Pour exécuter Geogebruh, préparez votre environnement :
-* `sudo scripts/setup`
+* `sudo apt install -y git`
 * `git clone https://github.com/billyx2000/Geogebruh.git geogebruh && cd geogebruh`
+* `sudo scripts/setup`
 * `./geogebruh`
