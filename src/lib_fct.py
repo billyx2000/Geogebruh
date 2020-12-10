@@ -17,13 +17,12 @@ class UsualFct(Enum):
     arccos = 10
     arcsin = 11
     arctan = 12
+    
 
 # Function : EVALUATEUR
 def VerifToken(tokenArray):
-    tokenArray = tokenArray.asList()
     tokenString = ''.join(str(v) for v in tokenArray).replace("]", '').replace("[", '') #List to string and remove '[' and ']'
-
-    tokenArray = re.compile("'([^\'])'").split(tokenString)  #Grabbing value between simple quote
+    tokenArray = re.compile("'([^\'])'").split(tokenString)  #Match simple quote element
     tokenString = ""
     for element in tokenArray:
         element = re.sub(r'(\w+),(\w+)', r'\1_\2', element)  #Fix Power issue, replacing ',' to '_' in array element
@@ -46,21 +45,24 @@ def VerifToken(tokenArray):
         else:
             # Prefix function name with "np" to use numpy math function (function_name => np.function_name)
             tokenString = tokenString.replace(fct, "np."+fct)
-
+ 
     return tokenString
 
 
 # Function : ANALYSEUR LEXICAL
 def LexicalAnalysis(myExpr):
     expr = Forward()
-    integer = Word(nums).setParseAction(lambda t:int(t[0]))  #  -> "W:(0-9)"
+    integer = Word(nums).setParseAction(lambda t:int(t[0]))  #  -> "W:(0-9)"   Convert num string to int 
     variable = Word(alphas)    ##     -> "W:(A-Za-z)"
-  
-    # define a key_value pair using Group to preserve structure
+    #double = Word(nums + ".").setParseAction(lambda t:float(t[0]))   #  -> "W:(0-9)"   Convert num string to float 
+    
     argFunc = Group(Optional(delimitedList(expr, delim=',', combine=True)))
     funccall = Group(variable + "(" + argFunc + ")")
     
-    operand = integer | funccall | variable
+    #array_func = Group(funccall + "[" + Group(delimitedList(expr, "][")) + "]")  #match array element after function : fct()[0]
+    #array_var = Group(variable + "[" + Group(delimitedList(expr, "][")) + "]")  #match array : array['a','b']
+
+    operand = integer | funccall | variable    # (pick the first left-to-right match)
 
     expr << infixNotation( operand,
      [
@@ -76,6 +78,7 @@ def LexicalAnalysis(myExpr):
    # -2--11
    # 5+3*6
    # (5+3)*6
+   # 6*(5+3)
    # cos(x+1) + 20
    # power(cos(x+1)*x, 4)
    # power(x,5)
@@ -83,7 +86,8 @@ def LexicalAnalysis(myExpr):
     
     return(result)
 
+
 # DEBUG
+
 #VerifToken(LexicalAnalysis('power(cos(x+1)*x, 4)'))
-#VerifToken(LexicalAnalysis('power(x, 4)+5'))
 
