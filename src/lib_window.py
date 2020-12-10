@@ -18,7 +18,7 @@ else:
 # Import Numpy (math mathods) and Matplotlib (Graph generation)
 import numpy as np
 
-
+# FONCTION: INTERFACE GRAPHIQUE
 # Create the window handler class (allowing fullscreen, and ESC to escape)
 class WindowHandler:
 
@@ -44,6 +44,7 @@ class WindowHandler:
         self.tk.attributes("-fullscreen", False)
         return "break"
 
+# FONCTION: INTERFACE GRAPHIQUE + EVALUATEUR
 # Function getting input field value
 def UpdateGraph(fig, input_func, input_range_min, input_range_max, input_step):
     # Get the fields value
@@ -64,7 +65,7 @@ def UpdateGraph(fig, input_func, input_range_min, input_range_max, input_step):
 
     # Update the new interval and step
     x = np.arange(range_min, range_max, range_step)
-    
+
     # Evaluate the expression and handle error, update the function and the variable
     try:
         fx = eval(func_parsed)
