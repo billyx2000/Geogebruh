@@ -88,5 +88,5 @@ def LexicalAnalysis(myExpr):
 
 # DEBUG
 
-VerifToken(LexicalAnalysis('power(cos(x+1),4)'))
+#VerifToken(LexicalAnalysis('power(cos(x+1),4)'))
 #VerifToken(LexicalAnalysis('power(x,4)'))
