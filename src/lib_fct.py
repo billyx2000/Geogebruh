@@ -21,11 +21,11 @@ class UsualFct(Enum):
 # Function : ANALYSEUR SYNTAXIQUE
 def VerifToken(tokenArray):
     tokenString = ''.join(str(v) for v in tokenArray).replace("]", '').replace("[", '') #List to string and remove '[' and ']'
-    tokenArray = re.compile("'([^\'])'").split(tokenString)  #Match simple quote element
+    tokenArray = re.compile("'([^']*?)'").split(tokenString)  #Match simple quote element
     tokenString = ""
     for element in tokenArray:
-        element = re.sub(r'(\w+),(\w+)', r'\1_\2', element)  #Fix `power(x,y)` function issue, replacing ',' to '_' in array element
-        tokenString += element  #Convert to string
+        element = re.sub(r'(\W|\w),(\w)', r'\1_\2', element)  #Fix `power(x,y)` function issue, replacing ',' to '_' in array element
+        tokenString += element  #Convert to string 
 
     tokenString = tokenString.replace(",", '').replace(" ", '').replace("'", '')  #removing withespace and quote
     tokenString = tokenString.replace("_", ',')  #replacing '_' to simple ','
@@ -43,18 +43,19 @@ def VerifToken(tokenArray):
 
         else:
             # Prefix function name with "np" to use numpy math function (function_name => np.function_name)
-            tokenString = tokenString.replace(fct, "np."+fct)
+            tokenString = tokenString.replace(fct, "np."+fct)      
 
     return tokenString
 
 
 # Function : ANALYSEUR LEXICAL
 def LexicalAnalysis(myExpr):
+    myExpr = myExpr.replace(" ", "") #remove withespaces
     expr = Forward()
-    integer = Word(nums).setParseAction(lambda t:int(t[0]))  #  -> "W:(0-9)"   Convert num string to int
+    integer = Word(nums).setParseAction(lambda t:int(t[0]))  #  -> "W:(0-9)"   Convert num string to int 
     variable = Word(alphas)    ##     -> "W:(A-Za-z)"
-    #double = Word(nums + ".").setParseAction(lambda t:float(t[0]))   #  -> "W:(0-9)"   Convert num string to float
-
+    #double = Word(nums + ".").setParseAction(lambda t:float(t[0]))   #  -> "W:(0-9)"   Convert num string to float 
+    
     argFunc = Group(Optional(delimitedList(expr, delim=',', combine=True)))
     funccall = Group(variable + "(" + argFunc + ")")
 
@@ -85,7 +86,7 @@ def LexicalAnalysis(myExpr):
 
     return(result)
 
-
 # DEBUG
-#VerifToken(LexicalAnalysis('power(cos(x+1)*x, 4)'))
 
+VerifToken(LexicalAnalysis('power(cos(x+1),4)'))
+#VerifToken(LexicalAnalysis('power(x,4)'))
