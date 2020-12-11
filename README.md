@@ -1,5 +1,5 @@
 # Geogebruh
-Projet generation de graphique dynamique, d'expression mathematique entré par un utilisateur
+Projet generation de graphique dynamique, d'expression mathematique entrée par un utilisateur
 
 # Run
 Pour exécuter Geogebruh, préparez votre environnement :

@@ -1,3 +1,7 @@
+# SyntacticAnalysis (Parsing) : Graham aka Tobias & Bilal
+# LexicalAnalysis : Milan & Najib
+
+
 #!/usr/bin/env python
 from pyparsing import *
 from enum import Enum

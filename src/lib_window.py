@@ -1,3 +1,5 @@
+# GraphicInterface : Hugo & Liam
+# Evaluator : Faustine & Graham aka Tobias
 
 # Import system library (used to test python version)
 import sys
