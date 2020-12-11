@@ -56,17 +56,17 @@ def VerifToken(tokenArray):
 def LexicalAnalysis(myExpr):
     myExpr = myExpr.replace(" ", "") #remove withespaces
     expr = Forward()
-    integer = Word(nums).setParseAction(lambda t:int(t[0]))  #  -> "W:(0-9)"   Convert num string to int 
     variable = Word(alphas)    ##     -> "W:(A-Za-z)"
-    #double = Word(nums + ".").setParseAction(lambda t:float(t[0]))   #  -> "W:(0-9)"   Convert num string to float 
-    
+    double = Word(nums + ".").setParseAction(lambda t:float(t[0]))   #  -> "W:(0-9)"   Convert num string to float 
+    #integer = Word(nums).setParseAction(lambda t:int(t[0]))  #  -> "W:(0-9)"   Convert num string to int 
+   
     argFunc = Group(Optional(delimitedList(expr, delim=',', combine=True)))
     funccall = Group(variable + "(" + argFunc + ")")
 
     #array_func = Group(funccall + "[" + Group(delimitedList(expr, "][")) + "]")  #match array element after function : fct()[0]
     #array_var = Group(variable + "[" + Group(delimitedList(expr, "][")) + "]")  #match array : array['a','b']
 
-    operand = integer | funccall | variable    # (pick the first left-to-right match)
+    operand = double | funccall | variable    # (pick the first left-to-right match)
 
     expr << infixNotation( operand,
      [
